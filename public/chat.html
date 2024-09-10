@@ -116,18 +116,27 @@
       const storage = firebase.storage();
       var 내uid = JSON.parse(localStorage.getItem("user")).uid;
 
-      console.log("내유아디", 내uid);
-
       var 채팅방id;
       console.log("채팅방 ID:", 채팅방id); // 디버깅을 위한 로그
+      console.log("내유아디", 내uid);
 
       db.collection("chatroom")
-        //   .where("who", "array-contains", 내uid) // who 라는 어레이에 내uid 가 포함된거 가져온다
-        .where("product", "==", "조온")
+        .where("who", "array-contains", 내uid) // who 라는 어레이에 내uid 가 포함된거 가져온다
+        //   .where("product", "==", "고구마")
         .get()
         .then((result) => {
           result.forEach((a) => {
             console.log(a.data());
+            var template = `
+             <li class="list-group-item">
+              <h6>${a.data().product}</h6>
+              <h6 class="text-small">${a.id}</h6>
+            </li>`;
+            $(".chat-list").append(template);
+
+            $(".list-group-item").click(() => {
+              채팅방id = $(this).children(".text-small").text();
+            });
           });
         });
     </script>

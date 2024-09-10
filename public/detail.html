@@ -108,9 +108,9 @@
       // 채팅긴으
       $("#chat").click(() => {
         var 데이터 = {
-          //   who: [내uid, 판매자uid],
-          from: 내uid,
-          to: 판매자uid,
+          who: [내uid, 판매자uid],
+          //  from: 내uid,
+          //   to: 판매자uid,
           product: 상품명,
           date: new Date(),
         };
@@ -137,16 +137,11 @@
           console.log("판매자 uid:", 판매자uid); // 이제 값이 있음
           console.log("상품명:", 상품명);
 
-          console.log("내유아", 내uid);
-          console.log("판매유아", 판매자uid);
-          console.log("상품", 상품명);
-          console.log("날자", new Date());
-
-          //    if (
-          //     result.data().uid !== JSON.parse(localStorage.getItem("user")).uid
-          //    ) {
-          //      document.getElementById("edit").style.display = "none";
-          //    }
+          if (
+            result.data().uid !== JSON.parse(localStorage.getItem("user")).uid
+          ) {
+            document.getElementById("edit").style.display = "none";
+          }
         });
 
       var 판매자uid;
@@ -173,6 +168,11 @@
       $("#edit").click(() => {
         window.location.href = "/edit.html?id=" + 쿼리스트링.get("id");
       });
+
+      console.log("내유아", 내uid);
+      console.log("판매유아", 판매자uid);
+      console.log("상품", 상품명);
+      console.log("날자", new Date());
     </script>
   </body>
 </html>
