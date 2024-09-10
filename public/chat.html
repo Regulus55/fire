@@ -152,8 +152,26 @@
             </li>`;
             $(".chat-list").append(template);
 
-            $(".list-group-item").click(() => {
-              채팅방id = $(this).children(".text-small").text();
+            $(".list-group-item").click(function (e) {
+              채팅방id = $(this).children(".text-small").text(); //클릭한 채팅방의 id
+
+              e.stopImmediatePropagation();
+
+              db.collection("chatroom")
+                .doc(채팅방id)
+                .collection("messages")
+                .orderBy("date")
+                .onSnapshot((result) => {
+                  $(".chat-content").html("");
+                  result.forEach((a) => {
+                    console.log(a.data()); //채팅내용 보여주기
+
+                    var 템플릿 = ` <li><span class="chat-box">${
+                      a.data().content
+                    }</span></li>`;
+                    $(".chat-content").append(템플릿);
+                  });
+                });
             });
           });
         });
