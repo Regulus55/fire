@@ -120,6 +120,25 @@
       console.log("채팅방 ID:", 채팅방id); // 디버깅을 위한 로그
       console.log("내유아디", 내uid);
 
+      $("#send").click(() => {
+        var 데이터 = {
+          content: $("#chat-input").val(),
+          date: new Date(),
+          uid: 내uid,
+        };
+        // console.log("데이터", 데이터);
+        db.collection("chatroom")
+          .doc("GRQEJSTMvgXjbFZNYqo4")
+          .collection("messages")
+          .add(데이터)
+          .then((a) => {
+            console.log("채팅보내기성공", a);
+          })
+          .catch((e) => {
+            console.log("채팅에러", e);
+          });
+      });
+
       db.collection("chatroom")
         .where("who", "array-contains", 내uid) // who 라는 어레이에 내uid 가 포함된거 가져온다
         //   .where("product", "==", "고구마")
