@@ -104,22 +104,17 @@
       const storage = firebase.storage();
 
       var 내uid = JSON.parse(localStorage.getItem("user")).uid;
-      var 판매자uid;
-      var 상품명;
-
-      console.log("내", 내uid);
-      console.log("판", 판매자uid);
-      console.log("상품", 상품명);
-      console.log("날", new Date());
 
       // 채팅긴으
       $("#chat").click(() => {
         var 데이터 = {
-          who: [내uid, 판매자uid],
+          //   who: [내uid, 판매자uid],
+          from: 내uid,
+          to: 판매자uid,
           product: 상품명,
           date: new Date(),
         };
-        db.collection("chatrooms")
+        db.collection("chatroom")
           .add(데이터)
           .then(() => {
             console.log("채팅방 생성됨", 데이터);
@@ -142,16 +137,30 @@
           console.log("판매자 uid:", 판매자uid); // 이제 값이 있음
           console.log("상품명:", 상품명);
 
-          if (res.data().uid !== JSON.parse(localStorage.getItem("user")).uid) {
-            document.getElementById("edit").style.display = "none";
-          }
+          console.log("내유아", 내uid);
+          console.log("판매유아", 판매자uid);
+          console.log("상품", 상품명);
+          console.log("날자", new Date());
+
+          //    if (
+          //     result.data().uid !== JSON.parse(localStorage.getItem("user")).uid
+          //    ) {
+          //      document.getElementById("edit").style.display = "none";
+          //    }
         });
+
+      var 판매자uid;
+      var 상품명;
 
       db.collection("product")
         .doc(쿼리스트링.get("id"))
         .get()
         .then((result) => {
           console.log("자료들", result.data()); //{ 제목: '모니터' , 가격 : 2000}
+
+          판매자uid = result.data().uid;
+          상품명 = result.data().제목;
+
           $(".title").html(result.data().제목);
           $(".price").html(result.data().가격 + "원");
           $("#uploader").html(result.data().이름);

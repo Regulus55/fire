@@ -121,7 +121,7 @@
       var 채팅방id;
       console.log("채팅방 ID:", 채팅방id); // 디버깅을 위한 로그
 
-      db.collection("chatrooms")
+      db.collection("chatroom")
         //   .where("who", "array-contains", 내uid) // who 라는 어레이에 내uid 가 포함된거 가져온다
         .where("product", "==", "조온")
         .get()
